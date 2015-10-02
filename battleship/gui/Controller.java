@@ -34,8 +34,8 @@ public class Controller {
 
     ArrayBlockingQueue<String> messages = new ArrayBlockingQueue<>(20);
 
+    // TODO you can actually move this receiver into net package.
     @FXML
-
     void initialize() {
         incoming.setEditable(false);
         send.setOnAction(event -> send());

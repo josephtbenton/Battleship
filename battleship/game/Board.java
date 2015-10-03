@@ -6,5 +6,4 @@ package game;
 public interface Board {
     public boolean registerHit(Coordinate location);
     public boolean registerMiss(Coordinate location);
-    public boolean registerAttack(Coordinate location);
 }

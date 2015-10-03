@@ -50,7 +50,14 @@ public class Ship {
         return false;
     }
 
-    public boolean isHit(int location) {
-
+    public void registerAttack(Coordinate coordinate) {
+        for (int i = 0; i < footprint.length; i++) {
+            if (coordinate.equals(footprint[i])) {
+                recordHit(i);
+            }
+        }
+    }
+    private void recordHit(int index) {
+        hits[index] = true;
     }
 }

@@ -15,36 +15,36 @@ public class Coordinate {
 	
 	public String toString() {
 		if (getX() == 0) {
-			return 'A' + (getY() + 1);
+			return "A" + (getY() + 1);
 		}
 		if (getX() == 1) {
-			return 'B' + (getY() + 1);
+			return "B" + (getY() + 1);
 		}
 		if (getX() == 2) {
-			return 'C' + (getY() + 1);
+			return "C" + (getY() + 1);
 		}
 		if (getX() == 3) {
-			return 'D' + (getY() + 1);
+			return "D" + (getY() + 1);
 		}
 		if (getX() == 4) {
-			return 'E' + (getY() + 1);
+			return "E" + (getY() + 1);
 		}
 		if (getX() == 5) {
-			return 'F' + (getY() + 1);
+			return "F" + (getY() + 1);
 		}
 		if (getX() == 6) {
-			return 'G' + (getY() + 1);
+			return "G" + (getY() + 1);
 		}
 		if (getX() == 7) {
-			return 'H' + (getY() + 1);
+			return "H" + (getY() + 1);
 		}
 		if (getX() == 8) {
-			return 'I' + (getY() + 1);
+			return "I" + (getY() + 1);
 		}
 		if (getX() == 9) {
-			return 'J' + (getY() + 1);
+			return "J" + (getY() + 1);
 		}
-		return '' + getX() + getY();
+		return "" + getX() + getY();
 	}
 	
 	public Boolean equals(Coordinate other) {

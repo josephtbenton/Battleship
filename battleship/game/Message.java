@@ -1,16 +1,22 @@
 package game;
 
-import java.nio.charset.MalformedInputException;
+import net.MessageType;
 
 /**
  * Created by Eric on 10/2/2015.
  */
 public class Message {
     private String input;
-
-//    T,00,Message
     public Message(String input){
         this.input = input;
+    }
+
+    public Message(MessageType type, Coordinate coord){
+        this.input = type.getCharacter() + coord.getX() + coord.getY();
+    }
+
+    public Message(MessageType type, String text){
+        this.input = type.getCharacter() + text;
     }
 
 

@@ -4,6 +4,7 @@ package game;
  * Created by josephbenton on 10/3/15.
  */
 public enum Direction {
+
     NORTH {
         @Override
         public Coordinate nextCoord(Coordinate current) {

@@ -18,7 +18,7 @@ public class Server {
 	
 
 	public Server(int port) throws IOException {
-		accepter = new ServerSocket(port);
+		accepter = new ServerSocket(8888);
 		System.out.println("Server: IP address: " + accepter.getInetAddress() + " (" + port + ")");
 	}
 

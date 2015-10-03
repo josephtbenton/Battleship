@@ -4,30 +4,38 @@ package game;
  * Created by Eric on 10/2/2015.
  */
 public class Decoder {
-    private String inputType;
-    private boolean messageState;
-    private boolean isHit;
     private Coordinate coordinate;
+    private String input;
 
-
+//    T,00,Message
     public Decoder(String input){
-        coordinate = getCoordinate(input);
-//        isHit = coordinate.getState;
-
-    }
-
-    public Coordinate getCoordinate(String input){
-//         TODO change void to our method of getting the coordinate
-//         We may associate a coordinate with a boolean value to check if it gets hit or not
-    }
-
-    public boolean getHit(String input){
-        return isHit;
-    }
-
-    public void setHit(Boolean status){
-        isHit = status;
+        this.input = input;
+        coordinate = calculateCoordinate();
     }
 
 
+    public Coordinate calculateCoordinate(){
+        int x = Integer.parseInt(input.substring(1,2));
+        int y = Integer.parseInt(input.substring(2,3));
+        return new Coordinate(x,y);
+    }
+
+    public Coordinate getCoordinate(){
+        return coordinate;
+    }
+
+    public boolean isAttack(){
+        return input.charAt(0) == 'A';
+    }
+
+    public boolean hasMessage(){
+        return input.length() >= 4;
+    }
+
+    public String getMessage(){
+        if (hasMessage()) {
+            return input.substring(3);
+        }
+        return "";
+    }
 }

@@ -1,5 +1,9 @@
 package game;
 
+import net.MessageType;
+
+import java.awt.*;
+
 /**
  * Created by reedmershon on 10/3/15.
  */
@@ -16,5 +20,8 @@ public class Radar implements Board {
         return false;
     }
 
+    public Message generateAttack(Coordinate location) {
+        return new Message(MessageType.ATTACK, location);
+    }
 
 }

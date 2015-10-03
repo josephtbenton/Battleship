@@ -1,5 +1,6 @@
-package game;
+package net;
 
+import game.core.Coordinate;
 import net.MessageType;
 
 /**

@@ -1,4 +1,6 @@
-package game;
+package game.core;
+
+import game.core.Coordinate;
 
 /**
  * Created by reedmershon on 10/3/15.

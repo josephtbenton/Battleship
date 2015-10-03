@@ -1,8 +1,9 @@
 package game;
 
+import game.core.Board;
+import game.core.Coordinate;
+import net.Message;
 import net.MessageType;
-
-import java.awt.*;
 
 /**
  * Created by reedmershon on 10/3/15.

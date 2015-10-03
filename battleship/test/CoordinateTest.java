@@ -1,4 +1,4 @@
-package game;
+package test;
 
 import static org.junit.Assert.*;
 
@@ -9,7 +9,7 @@ public class CoordinateTest {
         Coordinates coor = new Coordinates();
         coor.x = 3;
         coor.y = 4;
-        AsserEquals("Should convert 3,4 to D5", "D5", coor.toString());
+        AssertEquals("Should convert 3,4 to D5", "D5", coor.toString());
         
         coor.x = 18;
         coor.y = -4;

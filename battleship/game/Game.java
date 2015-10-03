@@ -1,7 +1,6 @@
-package game.core;
+package game;
 
-import game.Board;
-import game.Message;
+import net.Message;
 import game.Radar;
 import game.ShipBoard;
 import net.MessageType;

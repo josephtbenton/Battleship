@@ -20,40 +20,28 @@ public class Message {
     }
 
 
-    public Coordinate getCoordinate() throws Exception{
-        if (!isMessage()){
-            int x = Integer.parseInt(input.substring(1, 2));
-            int y = Integer.parseInt(input.substring(2, 3));
-            return new Coordinate(x, y);
+    public Coordinate getCoordinate() {
+        int x = Integer.parseInt(input.substring(1, 2));
+        int y = Integer.parseInt(input.substring(2, 3));
+        return new Coordinate(x, y);
+    }
 
+    public MessageType getType(){
+        char firstchar = input.charAt(0);
+        if (firstchar == 'A'){
+            return MessageType.ATTACK;
+        }
+        else if (firstchar == 'H'){
+            return MessageType.HIT;
+        }
+        else if (firstchar == 'M'){
+            return MessageType.MISS;
         }
         else{
-            throw new Exception("NotACoordinate");
+            return MessageType.TEXT;
         }
     }
-
-    public boolean isAttack(){
-        return input.charAt(0) == 'A';
-    }
-
-    public boolean isMessage(){
-        return input.charAt(0) == 'T';
-    }
-    public boolean isHit(){
-        return input.charAt(0) == 'H';
-    }
-
-    public boolean isMiss(){
-        return input.charAt(0) == 'M';
-    }
-
-
-    public String getMessage() throws Exception{
-        if (isMessage()){
-            return input.substring(1);
-        }
-        else{
-            throw new Exception("NotAMessage");
-        }
+    public String getMessage() {
+        return input.substring(1);
     }
 }

@@ -19,6 +19,7 @@ public class Decoder {
     public Coordinate getCoordinate(String input){
 //         TODO change void to our method of getting the coordinate
 //         We may associate a coordinate with a boolean value to check if it gets hit or not
+        return new Coordinate();
     }
 
     public boolean getHit(String input){

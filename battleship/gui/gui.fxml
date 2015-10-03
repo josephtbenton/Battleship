@@ -22,7 +22,7 @@
          </children></HBox>
    </bottom>
    <left>
-      <StackPane prefHeight="600.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <StackPane maxHeight="600.0" maxWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <GridPane gridLinesVisible="true" style="-fx-background-color: LIGHTBLUE;">
               <columnConstraints>
@@ -60,11 +60,6 @@
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="58.0" stroke="BLACK" strokeType="INSIDE" width="54.0" GridPane.columnIndex="5" GridPane.rowIndex="7" />
                </children>
             </GridPane>
-            <Canvas height="500.0" width="500.0">
-               <StackPane.margin>
-                  <Insets />
-               </StackPane.margin>
-            </Canvas>
          </children>
          <padding>
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
@@ -72,7 +67,7 @@
       </StackPane>
    </left>
    <right>
-      <StackPane prefHeight="600.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <StackPane maxHeight="600.0" maxWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <GridPane gridLinesVisible="true" style="-fx-background-color: LIGHTBLUE;">
                <columnConstraints>
@@ -106,7 +101,6 @@
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" stroke="BLACK" strokeType="INSIDE" width="270.0" GridPane.columnIndex="5" GridPane.rowIndex="9" />
                </children>
             </GridPane>
-            <Canvas height="500.0" width="500.0" />
          </children>
          <padding>
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />

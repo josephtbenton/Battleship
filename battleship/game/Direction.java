@@ -22,7 +22,7 @@ public enum Direction {
     WEST {
         @Override
         public Coordinate nextCoord(Coordinate current) {
-            return new Coordinate(current.getX() - 1, current.getY() - 1);        }
+            return new Coordinate(current.getX() - 1, current.getY());        }
     };
 
     private Direction next;

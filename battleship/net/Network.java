@@ -15,7 +15,6 @@ import java.util.concurrent.ArrayBlockingQueue;
 public class Network {
     String ipAddress;
     ArrayBlockingQueue<String> messages = new ArrayBlockingQueue<>(20) ;
-    Server s;
     int port;
 
     public Network() {
@@ -59,7 +58,7 @@ public class Network {
             System.out.println("getMessage: " + messages.peek());
             return messages.poll();
         }
-        return messages.poll();
+        return "Why";
 //        return "";
 
     }

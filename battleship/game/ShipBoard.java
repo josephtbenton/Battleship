@@ -2,6 +2,7 @@ package game;
 
 import game.core.Board;
 import game.core.Coordinate;
+import game.core.Direction;
 import game.core.ShipType;
 import javafx.scene.layout.GridPane;
 import net.Message;
@@ -24,6 +25,10 @@ public class ShipBoard implements Board {
             Ship ship = new Ship(0, 0, Type);
             shipList.add(shipIndex, ship);
         }
+    }
+
+    public void addShip(ShipType type, Direction dir, int x, int y) {
+
     }
 
 
@@ -52,5 +57,12 @@ public class ShipBoard implements Board {
         for (Ship s : shipList) {
             s.draw(display);
         }
+    }
+
+    public boolean allSunk() {
+        for (Ship s : shipList) {
+            if (s.isAfloat() == false) return false;
+        }
+        return true;
     }
 }

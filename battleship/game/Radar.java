@@ -38,7 +38,7 @@ public class Radar implements Board {
             display.add(new Rectangle(10, 10, Color.RED), hit.getX(), hit.getY());
         }
         for(Coordinate miss : misses) {
-            display.add(new Rectangle(10, 10, Color.RED), miss.getX(), miss.getY());
+            display.add(new Rectangle(10, 10, Color.WHITE), miss.getX(), miss.getY());
         }
     }
 

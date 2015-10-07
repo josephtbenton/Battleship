@@ -10,7 +10,12 @@ public class Game {
     Radar radar;
     ShipBoard shipBoard;
 
-    public void getMessage(String incoming) {
+    public Game(Radar radar, ShipBoard shipBoard) {
+        this.radar = radar;
+        this.shipBoard = shipBoard;
+    }
+
+    public void recieveMessage(String incoming) {
         Message message = new Message(incoming);
         if (message.getType() == MessageType.ATTACK) {
             shipBoard.checkAttack(message.getCoordinate());
@@ -22,4 +27,6 @@ public class Game {
             //print message somewhere
         }
     }
+
+
 }

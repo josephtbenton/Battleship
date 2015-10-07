@@ -9,15 +9,14 @@ import java.net.Socket;
 import java.util.concurrent.ArrayBlockingQueue;
 
 public class Server {
-
-
 	private ServerSocket accepter;
-	private ArrayBlockingQueue<String> messages;
+	public ArrayBlockingQueue<String> messages;
 
 	public Server(int port, ArrayBlockingQueue<String> messages) throws IOException {
 		accepter = new ServerSocket(port);
-		System.out.println("Server: IP address: " + accepter.getInetAddress() + " (" + port + ")");
 		this.messages = messages;
+		System.out.println("Server: IP address: " + accepter.getInetAddress() + " (" + port + ")");
+
 	}
 
 	public void listen() throws IOException {
@@ -29,28 +28,32 @@ public class Server {
 		}
 	}
 
-	private class SocketEchoThread extends Thread {
-		private Socket socket;
-
-		public SocketEchoThread(Socket socket) {
-			this.socket = socket;
+	public void close() {
+		try {
+			accepter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+	}
+	
+	private class SocketEchoThread extends Thread {
+	    private Socket socket;
+	    
+	    public SocketEchoThread(Socket socket) {
+	        this.socket = socket;
+	    }
 
-		public void run() {
-			try {
-				String msg = getMessage();
-				System.out.println("Server: Received [" + msg + "]");
+	    public void run() {
+	        try {
+	            String msg = getMessage();
+	            System.out.println("Server: Received [" + msg + "]");
 				messages.add(msg);
 				socket.close();
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
-			}
+	        } catch (IOException ioe) {
+	            ioe.printStackTrace();
+	        }
 		}
 
-		private void sendGreeting(PrintWriter writer) {
-			writer.println("Connection open.");
-			writer.println("I will echo a single message, then close.");
-		}
 
 		private void echoAndClose(PrintWriter writer, String msg) throws IOException {
 			writer.print(msg);
@@ -58,15 +61,15 @@ public class Server {
 			socket.close();
 		}
 
-		private String getMessage() throws IOException {
-			BufferedReader responses =
-					new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			StringBuilder sb = new StringBuilder();
-			while (!responses.ready()){}
-			while (responses.ready()) {
-				sb.append(responses.readLine() + '\n');
-			}
-			return sb.toString();
-		}
+	    private String getMessage() throws IOException {
+            BufferedReader responses = 
+            		new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            StringBuilder sb = new StringBuilder();
+            while (!responses.ready()){}
+            while (responses.ready()) {
+                sb.append(responses.readLine() + '\n');
+            }
+	    	return sb.toString();
+	    }
 	}
 }

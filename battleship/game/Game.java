@@ -9,6 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import net.Message;
 import net.MessageType;
+import net.Network;
 
 import java.util.ArrayDeque;
 import java.util.PriorityQueue;

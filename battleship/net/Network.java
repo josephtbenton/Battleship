@@ -22,24 +22,15 @@ public class Network {
         port = 8000;
         new Thread(() -> {
             try {
-                Server s = new Server(8000,messages);
+                s = new Server(port,messages);
+                System.out.println("Thread: server Listen");
                 s.listen();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }).start();
+        }
+        ).start();
     }
-//        new Thread(() -> {
-//            try {
-//                s = new Server(port,messages);
-//                System.out.println("Thread: server Listen");
-//                s.listen();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        ).start();
-//    }
 
     public void connect(String ip, int port){
         ipAddress = ip;
@@ -49,6 +40,9 @@ public class Network {
         } catch(Exception connectionfail){
             connectionfail.printStackTrace();
         }
+    }
+    public void close(){
+        s.close();
     }
     public boolean hasMessage(){
         return messages.size() > 0;
@@ -106,7 +100,7 @@ public class Network {
         while (sockin.ready()) {
             try {
                 String msg = sockin.readLine();
-                messages.put(msg);
+                // messages.put(msg);
             } catch (Exception e) {
                 Platform.runLater(() -> badNews(e.getMessage()));
                 e.printStackTrace();

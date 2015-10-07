@@ -13,17 +13,28 @@ public class ServerTest {
     Server server;
     Network net;
 
-    @Test
-    public void createNet(){
-        net = new Network();
-    }
+    /*@Test
+    public void serverSetup() throws IOException {
+        server = new Server(8000);
+        server.close();
+    }*/
+
+//    @Test
+//    public void createNet(){
+//        net = new Network();
+//    }
 
     @Test
-    public void sendMessage() {
+    public void sendMessage(){
         net = new Network();
-        net.connect("localhost", 8000);
-        while(!net.hasMessage()){}
-        net.getMessage();
+        net.connect("localhost",8000);
+//        System.out.println(net.hasMessage());
+        net.send("THi");
+//        System.out.println(net.hasMessage());
+        net.send("HIIIII");
+//        System.out.println(net.hasMessage());
+//        System.out.println(net.getMessage());
+//         net.close();
     }
 
 }

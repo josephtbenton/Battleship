@@ -94,11 +94,6 @@ public class BattleshipClientController {
         pane.setOnMouseClicked(e -> {
             System.out.printf("Mouse clicked radar [%d, %d]%n", colIndex, rowIndex);
             attack(colIndex, rowIndex);
-            if (e.isSecondaryButtonDown()) {
-                game.radarMiss(colIndex, rowIndex);
-            } else {
-                game.radarHit(colIndex, rowIndex);
-            }
         });
         radarPane.add(pane, colIndex, rowIndex);
     }

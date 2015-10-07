@@ -14,21 +14,32 @@ import java.util.concurrent.ArrayBlockingQueue;
  */
 public class Network {
     String ipAddress;
-    ArrayBlockingQueue<String> messages = new ArrayBlockingQueue<>(20);
+    ArrayBlockingQueue<String> messages = new ArrayBlockingQueue<>(20) ;
+    Server s;
     int port;
 
     public Network() {
         port = 8000;
         new Thread(() -> {
             try {
-                Server s = new Server(port);
+                Server s = new Server(8000, messages);
                 s.listen();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        ).start();
+        }).start();
     }
+//        new Thread(() -> {
+//            try {
+//                s = new Server(port,messages);
+//                System.out.println("Thread: server Listen");
+//                s.listen();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        ).start();
+//    }
 
     public void connect(String ip, int port){
         ipAddress = ip;
@@ -39,24 +50,30 @@ public class Network {
             connectionfail.printStackTrace();
         }
     }
-
     public boolean hasMessage(){
         return messages.size() > 0;
     }
 
     public String getMessage() {
-        System.out.println("getMessage: " + messages.peek());
+        if (hasMessage()) {
+            System.out.println("getMessage: " + messages.peek());
+            return messages.poll();
+        }
         return messages.poll();
+//        return "";
 
     }
 
     public void send(String text) {
         try {
+//            System.out.println(ipAddress + port + text);
             sendTo(ipAddress, port, text);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
 
     private void badNews(String what) {
         System.out.println(what);
@@ -96,6 +113,9 @@ public class Network {
             }
         }
     }
+
+
+
 
 
 

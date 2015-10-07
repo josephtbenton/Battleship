@@ -1,8 +1,6 @@
 package game;
 
 import net.Message;
-import game.Radar;
-import game.ShipBoard;
 import net.MessageType;
 
 /**
@@ -15,7 +13,7 @@ public class Game {
     public void getMessage(String incoming) {
         Message message = new Message(incoming);
         if (message.getType() == MessageType.ATTACK) {
-            shipBoard.registerAttack(message.getCoordinate());
+            shipBoard.checkAttack(message.getCoordinate());
         } else if (message.getType() == MessageType.HIT) {
             radar.registerHit(message.getCoordinate());
         } else if (message.getType() == MessageType.MISS) {

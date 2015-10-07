@@ -53,12 +53,14 @@ public class Ship {
         return false;
     }
 
-    public void registerAttack(Coordinate coordinate) {
+    public boolean registerAttack(Coordinate coordinate) {
         for (int i = 0; i < footprint.length; i++) {
             if (coordinate.equals(footprint[i])) {
                 recordHit(i);
+                return true;
             }
         }
+        return false;
     }
     private void recordHit(int index) {
         hits[index] = true;
@@ -67,7 +69,8 @@ public class Ship {
     public void draw(GridPane display) {
         Coordinate current = root;
         for (int i = 0; i < length; i++) {
-            display.add(new Rectangle(10, 10, Color.DARKGRAY), current.getX(), current.getY());
+            Color color = hits[i] ? Color.RED : Color.DARKGRAY;
+            display.add(new Rectangle(10, 10, color), current.getX(), current.getY());
             current = dir.nextCoord(current);
         }
     }

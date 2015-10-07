@@ -55,7 +55,6 @@ public class BattleshipClientController {
             if (now - then > NANO_INTERVAL) {
                 while (connected && net.hasMessage()) {
                     game.recieveMessage(net.getMessage());
-                    System.out.println(net.hasMessage());
                 }
                 while (connected && game.hasMessage()) {
                     net.send(game.getMessage());

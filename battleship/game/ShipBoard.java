@@ -3,6 +3,7 @@ package game;
 import game.core.Board;
 import game.core.Coordinate;
 import game.core.ShipType;
+import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
 
@@ -12,6 +13,8 @@ import java.util.ArrayList;
 public class ShipBoard implements Board{
 
     ArrayList<Ship> shipList;
+    ArrayList<Coordinate> hits;
+    ArrayList<Coordinate> misses;
 
     public void generateShips() {
         int shipIndex = 0;
@@ -29,12 +32,19 @@ public class ShipBoard implements Board{
     }
 
     @Override
-    public boolean registerHit(Coordinate location) {
-        return false;
+    public void registerHit(Coordinate location) {
+        hits.add(location);
     }
 
     @Override
-    public boolean registerMiss(Coordinate location) {
-        return false;
+    public void registerMiss(Coordinate location) {
+        misses.add(location);
+    }
+
+    @Override
+    public void draw(GridPane display) {
+        for (Ship s : shipList) {
+            s.draw(display);
+        }
     }
 }

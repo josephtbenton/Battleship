@@ -6,22 +6,31 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ArrayBlockingQueue;
 
 public class Server {
 	private ServerSocket accepter;
+    ArrayBlockingQueue<String> messages = new ArrayBlockingQueue(20);
 
 
 	public static void main(String[] args) throws IOException {
 		Server s = new Server(Integer.parseInt(args[0]));
 		s.listen();
 	}
-	
 
 	public Server(int port) throws IOException {
 		accepter = new ServerSocket(port);
 		System.out.println("Server: IP address: " + accepter.getInetAddress() + " (" + port + ")");
 	}
 
+    public boolean hasMessage(){
+        return messages.size() > 0;
+    }
+
+    public String getMessage() {
+        return messages.poll();
+
+    }
 	public void listen() throws IOException {
 		for (;;) {
 			Socket s = accepter.accept();
@@ -52,6 +61,7 @@ public class Server {
             writer.print(msg);
             writer.flush();
             socket.close();
+            messages.add(msg);
 	    }
 
 	    private String getMessage() throws IOException {

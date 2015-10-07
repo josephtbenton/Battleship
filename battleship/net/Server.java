@@ -18,7 +18,7 @@ public class Server {
 	
 
 	public Server(int port) throws IOException {
-		accepter = new ServerSocket(8888);
+		accepter = new ServerSocket(port);
 		System.out.println("Server: IP address: " + accepter.getInetAddress() + " (" + port + ")");
 	}
 
@@ -40,27 +40,30 @@ public class Server {
 
 	    public void run() {
 	        try {
-	            PrintWriter writer = new PrintWriter(socket.getOutputStream());
-	            sendGreeting(writer);
+	            /*PrintWriter writer = new PrintWriter(socket.getOutputStream());
+	            sendGreeting(writer);*/
 	            String msg = getMessage();
 	            System.out.println("Server: Received [" + msg + "]");
-	            echoAndClose(writer, msg);
+				// The msg is the thing we're sending.
+
+//	            echoAndClose(writer, msg);
+				socket.close();
 	        } catch (IOException ioe) {
 	            ioe.printStackTrace();
 	        } 
 	    }
-	    
-	    private void sendGreeting(PrintWriter writer) {
-            writer.println("Connection open.");
-            writer.println("I will echo a single message, then close.");	
-	    }
-	    
-	    private void echoAndClose(PrintWriter writer, String msg) throws IOException {
-            writer.print(msg);
-            writer.flush();
-            socket.close();	    	
-	    }
-	    
+//
+//	    private void sendGreeting(PrintWriter writer) {
+//            writer.println("Connection open.");
+//            writer.println("I will echo a single message, then close.");
+//	    }
+//
+//	    private void echoAndClose(PrintWriter writer, String msg) throws IOException {
+//            writer.print(msg);
+//            writer.flush();
+//            socket.close();
+//	    }
+//
 	    private String getMessage() throws IOException {
             BufferedReader responses = 
             		new BufferedReader(new InputStreamReader(socket.getInputStream()));

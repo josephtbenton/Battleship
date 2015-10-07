@@ -27,19 +27,18 @@ public class Message {
         return new Coordinate(x, y);
     }
 
-    public MessageType getType(){
-        char firstchar = input.charAt(0);
-        if (firstchar == 'A'){
-            return MessageType.ATTACK;
-        }
-        else if (firstchar == 'H'){
-            return MessageType.HIT;
-        }
-        else if (firstchar == 'M'){
-            return MessageType.MISS;
-        }
-        else if (firstchar == 'T'){
-            return MessageType.TEXT;
+    public MessageType getType() {
+        if (input != null && input.length() > 0) {
+            char firstchar = input.charAt(0);
+            if (firstchar == 'A') {
+                return MessageType.ATTACK;
+            } else if (firstchar == 'H') {
+                return MessageType.HIT;
+            } else if (firstchar == 'M') {
+                return MessageType.MISS;
+            } else if (firstchar == 'T') {
+                return MessageType.TEXT;
+            }
         }
         return null;
     }

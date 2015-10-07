@@ -18,7 +18,7 @@
          <children>
             <Text fx:id="prompt" strokeType="OUTSIDE" strokeWidth="0.0" text="Context based directions" wrappingWidth="209.68292617797852" />
             <TextArea fx:id="ipField" maxHeight="25.0" maxWidth="167.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="167.0" text="IP address of opponent&#10;" />
-            <Button fx:id="connect" mnemonicParsing="false" text="Connect" />
+            <Button fx:id="connect" mnemonicParsing="false" onAction="#connect" text="Connect" />
          </children></HBox>
    </bottom>
    <left>

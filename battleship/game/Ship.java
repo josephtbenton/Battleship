@@ -76,7 +76,7 @@ public class Ship {
             Rectangle rect = new Rectangle(50, 50, color);
             rect.setOnMouseClicked(ev -> {
                 System.out.println("rotating");
-                rotate();
+                this.rotate();
 
             });
             display.add(rect, current.getX(), current.getY());

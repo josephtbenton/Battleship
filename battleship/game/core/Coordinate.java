@@ -12,7 +12,7 @@ public class Coordinate {
 		y = Y;
 	}
 	
-	
+	@Override
 	public String toString() {
 		if (getX() == 0) {
 			return "A" + (getY() + 1);

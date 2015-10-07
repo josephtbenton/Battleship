@@ -22,4 +22,11 @@ public class Game {
             //print message somewhere
         }
     }
+
+    public void runGame() {
+        // TODO determine how to get the SuD to determine who goes first
+
+
+
+    }
 }

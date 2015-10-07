@@ -44,7 +44,7 @@ public class BattleshipClientController {
 
     Game game = new Game(out);
     Network net = new Network();
-    boolean connected = true;
+    boolean connected;
     private long FRAMES_PER_SEC = 60L;
     private long NANO_INTERVAL = 1000000000L / FRAMES_PER_SEC;
 
@@ -67,7 +67,6 @@ public class BattleshipClientController {
 
     @FXML
     public void initialize() {
-        net.connect("127.0.0.1", 8000);
         int numCols = 10;
         int numRows = 10;
         for (int i = 0 ; i < numCols ; i++) {
@@ -77,6 +76,13 @@ public class BattleshipClientController {
             }
         }
         timer.start();
+    }
+
+    @FXML
+    public void connect() {
+        net.connect(ipField.getText(), 8000);
+        connected = true;
+        ipField.clear();
     }
 
     private void attack(int x, int y) {

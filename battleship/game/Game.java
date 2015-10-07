@@ -19,7 +19,7 @@ public class Game {
         } else if (message.getType() == MessageType.HIT) {
             radar.registerHit(message.getCoordinate());
         } else if (message.getType() == MessageType.MISS) {
-            radar.registerMiss(message.getCoordinate())
+            radar.registerMiss(message.getCoordinate());
         } else if (message.getType() == MessageType.TEXT) {
             //print message somewhere
         }

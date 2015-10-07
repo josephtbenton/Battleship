@@ -29,12 +29,12 @@ public class ShipBoard implements Board{
     }
 
     @Override
-    public boolean registerHit(Coordinate location) {
-        return false;
+    public void registerHit(Coordinate location) {
+
     }
 
     @Override
-    public boolean registerMiss(Coordinate location) {
-        return false;
+    public void registerMiss(Coordinate location) {
+
     }
 }

@@ -19,7 +19,6 @@ public class Radar implements Board {
     ArrayList<Coordinate> misses;
 
 
-
     @Override
     public void registerHit(Coordinate location) {
         hits.add(location);
@@ -32,6 +31,10 @@ public class Radar implements Board {
 
     public Message generateAttack(Coordinate location) {
         return new Message(MessageType.ATTACK, location);
+    }
+
+    public Coordinate highlightCoord(Coordinate location) {
+        return location;
     }
 
 }

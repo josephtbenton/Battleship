@@ -30,7 +30,7 @@ public class Network {
         ).start();
     }
 
-    public void Connect(String ip, int port){
+    public void connect(String ip, int port){
         ipAddress = ip;
         this.port = port;
         try{
@@ -40,6 +40,15 @@ public class Network {
         }
     }
 
+    public boolean hasMessage(){
+        return messages.size() > 0;
+    }
+
+    public String getMessage() {
+        System.out.println("getMessage: " + messages.peek());
+        return messages.poll();
+
+    }
 
     public void send(String text) {
         try {
@@ -50,6 +59,7 @@ public class Network {
     }
 
     private void badNews(String what) {
+        System.out.println(what);
         // TODO: THROW ALL THE ERRORS
     }
 

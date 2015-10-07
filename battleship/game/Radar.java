@@ -2,32 +2,44 @@ package game;
 
 import game.core.Board;
 import game.core.Coordinate;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import net.Message;
 import net.MessageType;
 
-import java.awt.*;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
+import java.util.ArrayList;
+
 
 /**
  * Created by reedmershon on 10/3/15.
  */
 public class Radar implements Board {
 
-    private Map<String, Coordinate> shipMap;
+    ArrayList<Coordinate> hits;
+
+    ArrayList<Coordinate> misses;
 
 
 
     @Override
-    public boolean registerHit(Coordinate location) {
-        shipMap.put("HIT", location);
-        return false;
+    public void registerHit(Coordinate location) {
+        hits.add(location);
     }
 
     @Override
-    public boolean registerMiss(Coordinate location) {
-        return false;
+    public void registerMiss(Coordinate location) {
+        misses.add(location);
+    }
+
+    @Override
+    public void draw(GridPane display) {
+        for(Coordinate hit : hits) {
+            display.add(new Rectangle(10, 10, Color.RED), hit.getX(), hit.getY());
+        }
+        for(Coordinate miss : misses) {
+            display.add(new Rectangle(10, 10, Color.RED), miss.getX(), miss.getY());
+        }
     }
 
     public Message generateAttack(Coordinate location) {

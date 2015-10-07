@@ -1,6 +1,5 @@
 package game;
 
-import game.core.Board;
 import game.core.Coordinate;
 import game.core.Direction;
 import game.core.ShipType;
@@ -13,22 +12,18 @@ import java.util.ArrayList;
 /**
  * Created by reedmershon on 10/3/15.
  */
-public class ShipBoard implements Board {
+public class ShipBoard{
 
-    ArrayList<Ship> shipList;
-    ArrayList<Coordinate> hits;
-    ArrayList<Coordinate> misses;
-
-    public void generateShips() {
-        int shipIndex = 0;
-        for (ShipType Type : ShipType.values()) {
-            Ship ship = new Ship(0, 0, Type);
-            shipList.add(shipIndex, ship);
-        }
-    }
+    ArrayList<Ship> shipList = new ArrayList<>();
+    ArrayList<Coordinate> hits = new ArrayList<>();
+    ArrayList<Coordinate> misses = new ArrayList<>();
 
     public void addShip(ShipType type, Direction dir, int x, int y) {
-
+        Ship ship = new Ship(type, dir, x, y);
+        for (Coordinate c : ship.getFootprint()) {
+            if (!c.isLegal()) return;
+        }
+        shipList.add(ship);
     }
 
 
@@ -42,17 +37,14 @@ public class ShipBoard implements Board {
         return new Message(MessageType.MISS, location);
     }
 
-    @Override
-    public void registerHit(Coordinate location) {
+    private void registerHit(Coordinate location) {
         hits.add(location);
     }
 
-    @Override
-    public void registerMiss(Coordinate location) {
+    private void registerMiss(Coordinate location) {
         misses.add(location);
     }
 
-    @Override
     public void draw(GridPane display) {
         for (Ship s : shipList) {
             s.draw(display);

@@ -1,9 +1,9 @@
 package game;
 
-import game.core.Board;
 import game.core.Coordinate;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import net.Message;
 import net.MessageType;
@@ -14,30 +14,33 @@ import java.util.ArrayList;
 /**
  * Created by reedmershon on 10/3/15.
  */
-public class Radar implements Board {
+public class Radar {
 
     ArrayList<Coordinate> hits;
 
     ArrayList<Coordinate> misses;
 
+    public Radar() {
+        this.hits = new ArrayList<>();
+        this.misses = new ArrayList<>();
+    }
 
-    @Override
+
     public void registerHit(Coordinate location) {
         hits.add(location);
     }
 
-    @Override
+
     public void registerMiss(Coordinate location) {
         misses.add(location);
     }
 
-    @Override
     public void draw(GridPane display) {
         for(Coordinate hit : hits) {
-            display.add(new Rectangle(10, 10, Color.RED), hit.getX(), hit.getY());
+            display.add(new Circle(25, Color.RED), hit.getX(), hit.getY());
         }
         for(Coordinate miss : misses) {
-            display.add(new Rectangle(10, 10, Color.WHITE), miss.getX(), miss.getY());
+            display.add(new Circle(25, Color.WHITE), miss.getX(), miss.getY());
         }
     }
 

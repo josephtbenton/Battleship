@@ -38,9 +38,10 @@ public class Message {
         else if (firstchar == 'M'){
             return MessageType.MISS;
         }
-        else{
+        else if (firstchar == 'T'){
             return MessageType.TEXT;
         }
+        return null;
     }
 
     public String asString(){

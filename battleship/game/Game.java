@@ -1,7 +1,19 @@
 package game;
 
+import com.sun.jmx.remote.internal.ArrayQueue;
+import game.core.Coordinate;
+import game.core.Direction;
+import game.core.ShipType;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 import net.Message;
 import net.MessageType;
+
+import java.util.ArrayDeque;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * Created by josephbenton on 10/3/15.
@@ -9,22 +21,55 @@ import net.MessageType;
 public class Game {
     Radar radar;
     ShipBoard shipBoard;
+    ArrayBlockingQueue<Message> outgoing;
+    Text out;
 
-    public Game(Radar radar, ShipBoard shipBoard) {
-        this.radar = radar;
-        this.shipBoard = shipBoard;
+    public Game(Text out) {
+        this.radar = new Radar();
+        this.shipBoard = new ShipBoard();
+        this.outgoing = new ArrayBlockingQueue<Message>(1);
     }
 
     public void recieveMessage(String incoming) {
         Message message = new Message(incoming);
         if (message.getType() == MessageType.ATTACK) {
-            shipBoard.checkAttack(message.getCoordinate());
+            outgoing.add(shipBoard.checkAttack(message.getCoordinate()));
+            print("Attack at " + message.getCoordinate().toString());
         } else if (message.getType() == MessageType.HIT) {
             radar.registerHit(message.getCoordinate());
+            print("You hit at " + message.getCoordinate().toString());
         } else if (message.getType() == MessageType.MISS) {
             radar.registerMiss(message.getCoordinate());
+            print("You missed at " + message.getCoordinate().toString());
         } else if (message.getType() == MessageType.TEXT) {
-            //print message somewhere
+            print("Opponent says: " + message.asString());
         }
+    }
+
+    public void print(String msg) {
+        out.setText(msg);
+    }
+
+
+    public void sendAttack(int x, int y) {
+        outgoing.add(new Message(MessageType.ATTACK, new Coordinate(x, y)));
+
+    }
+
+    public boolean hasMessage() {
+        return outgoing.size() != 0;
+    }
+
+    public String getMessage() {
+        return outgoing.poll().asString();
+    }
+
+    public void draw(GridPane radarPane, GridPane shipPane) {
+        radar.draw(radarPane);
+        shipBoard.draw(shipPane);
+    }
+
+    public void addShip(int rowIndex, int colIndex) {
+        shipBoard.addShip(ShipType.BATTLESHIP, Direction.NORTH, colIndex, rowIndex);
     }
 }

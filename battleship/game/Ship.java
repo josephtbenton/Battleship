@@ -3,6 +3,7 @@ package game;
 import game.core.Coordinate;
 import game.core.Direction;
 import game.core.ShipType;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -19,11 +20,11 @@ public class Ship {
     boolean[] hits;
     Coordinate[] footprint;
 
-    public Ship(int x, int y, ShipType type) {
+    public Ship(ShipType type, Direction dir, int x, int y) {
+        this.type = type;
+        this.dir = dir;
         this.root = new Coordinate(x, y);
         this.length = type.getLength();
-        this.type = type;
-        this.dir = Direction.EAST;
         hits = new boolean[length];
         footprint = calculateFootprint();
     }
@@ -62,15 +63,23 @@ public class Ship {
         }
         return false;
     }
+
     private void recordHit(int index) {
         hits[index] = true;
     }
+
 
     public void draw(GridPane display) {
         Coordinate current = root;
         for (int i = 0; i < length; i++) {
             Color color = hits[i] ? Color.RED : Color.DARKGRAY;
-            display.add(new Rectangle(10, 10, color), current.getX(), current.getY());
+            Rectangle rect = new Rectangle(50, 50, color);
+            rect.setOnMouseClicked(ev -> {
+                System.out.println("rotating");
+                rotate();
+
+            });
+            display.add(rect, current.getX(), current.getY());
             current = dir.nextCoord(current);
         }
     }

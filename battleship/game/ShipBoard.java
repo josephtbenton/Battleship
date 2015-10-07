@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Created by reedmershon on 10/3/15.
  */
-public class ShipBoard implements Board{
+public class ShipBoard implements Board {
 
     ArrayList<Ship> shipList;
     ArrayList<Coordinate> hits;

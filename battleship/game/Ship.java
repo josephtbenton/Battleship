@@ -3,6 +3,9 @@ package game;
 import game.core.Coordinate;
 import game.core.Direction;
 import game.core.ShipType;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 /**
  * Created by josephbenton on 10/3/15.
@@ -59,5 +62,13 @@ public class Ship {
     }
     private void recordHit(int index) {
         hits[index] = true;
+    }
+
+    public void draw(GridPane display) {
+        Coordinate current = root;
+        for (int i = 0; i < length; i++) {
+            display.add(new Rectangle(10, 10, Color.DARKGRAY), current.getX(), current.getY());
+            current = dir.nextCoord(current);
+        }
     }
 }

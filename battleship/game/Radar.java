@@ -5,14 +5,23 @@ import game.core.Coordinate;
 import net.Message;
 import net.MessageType;
 
+import java.awt.*;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * Created by reedmershon on 10/3/15.
  */
 public class Radar implements Board {
 
+    private Map<String, Coordinate> shipMap;
+
+
 
     @Override
     public boolean registerHit(Coordinate location) {
+        shipMap.put("HIT", location);
         return false;
     }
 

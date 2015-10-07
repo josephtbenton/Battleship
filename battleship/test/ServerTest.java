@@ -13,16 +13,10 @@ public class ServerTest {
     Server server;
     Network net;
 
-    /*@Test
-    public void serverSetup() throws IOException {
-        server = new Server(8000);
-        server.close();
-    }*/
-
-//    @Test
-//    public void createNet(){
-//        net = new Network();
-//    }
+    @Test
+    public void createNet(){
+        net = new Network();
+    }
 
     @Test
     public void sendMessage() {

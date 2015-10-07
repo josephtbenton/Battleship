@@ -42,6 +42,10 @@ public class Message {
             return MessageType.TEXT;
         }
     }
+
+    public String asString(){
+        return input;
+    }
     public String getMessage() {
         return input.substring(1);
     }

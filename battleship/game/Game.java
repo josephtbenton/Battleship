@@ -28,6 +28,7 @@ public class Game {
         this.radar = new Radar();
         this.shipBoard = new ShipBoard();
         this.outgoing = new ArrayBlockingQueue<Message>(1);
+        this.out = out;
     }
 
     public void recieveMessage(String incoming) {

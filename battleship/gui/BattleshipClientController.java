@@ -42,7 +42,7 @@ public class BattleshipClientController {
     @FXML
     Text out;
 
-    Game game = new Game(out);
+    Game game;
     Network net = new Network();
     boolean connected;
     private long FRAMES_PER_SEC = 60L;
@@ -53,10 +53,10 @@ public class BattleshipClientController {
         @Override
         public void handle(long now) {
             if (now - then > NANO_INTERVAL) {
-                while (connected && net.hasMessage()) {
+                if (connected && net.hasMessage()) {
                     game.recieveMessage(net.getMessage());
                 }
-                while (connected && game.hasMessage()) {
+                if (connected && game.hasMessage()) {
                     net.send(game.getMessage());
                 }
                 game.draw(radarPane, shipPane);
@@ -67,6 +67,8 @@ public class BattleshipClientController {
 
     @FXML
     public void initialize() {
+        game = new Game(out);
+
         int numCols = 10;
         int numRows = 10;
         for (int i = 0 ; i < numCols ; i++) {

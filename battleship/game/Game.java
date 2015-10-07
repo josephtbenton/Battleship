@@ -72,4 +72,12 @@ public class Game {
     public void addShip(int rowIndex, int colIndex) {
         shipBoard.addShip(ShipType.BATTLESHIP, Direction.NORTH, colIndex, rowIndex);
     }
+
+    //temp. for demo only
+    public void radarHit(int x, int y) {
+        radar.registerHit(new Coordinate(x, y));
+    }
+    public void radarMiss(int x, int y) {
+        radar.registerMiss(new Coordinate(x, y));
+    }
 }

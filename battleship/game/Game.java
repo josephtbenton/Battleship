@@ -32,7 +32,7 @@ public class Game {
         this.out = out;
     }
 
-    public void recieveMessage(String incoming) {
+    public void receiveMessage(String incoming) {
         Message message = new Message(incoming);
         if (message.getType() == MessageType.ATTACK) {
             outgoing.add(shipBoard.checkAttack(message.getCoordinate()));

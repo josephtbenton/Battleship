@@ -1,18 +1,10 @@
 package gui;
 
 import game.Game;
-import game.Radar;
-import game.ShipBoard;
-import game.core.Coordinate;
-import game.core.Direction;
-import game.core.ShipType;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -54,7 +46,7 @@ public class BattleshipClientController {
         public void handle(long now) {
             if (now - then > NANO_INTERVAL) {
                 if (connected && net.hasMessage()) {
-                    game.recieveMessage(net.getMessage());
+                    game.receiveMessage(net.getMessage());
                 }
                 if (connected && game.hasMessage()) {
                     net.send(game.getMessage());

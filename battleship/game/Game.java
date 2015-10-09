@@ -40,7 +40,7 @@ public class Game {
             radar.registerMiss(message.getCoordinate());
             print("You missed at " + message.getCoordinate().toString());
         } else if (message.getType() == MessageType.TEXT) {
-            print("Opponent says: " + message.asString());
+            print("Enemy: " + message.getMessage());
         }
     }
 

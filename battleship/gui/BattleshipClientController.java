@@ -33,6 +33,9 @@ public class BattleshipClientController {
     TextField ipField;
 
     @FXML
+    TextField chatField;
+
+    @FXML
     TextArea out;
 
     Game game;
@@ -79,6 +82,13 @@ public class BattleshipClientController {
         connected = true;
         game.setTurn(true);
         ipField.clear();
+    }
+
+    @FXML
+    public void chat() {
+        game.print("You: " + chatField.getText());
+        net.send("T" + chatField.getText());
+        chatField.clear();
     }
 
     private void attack(int x, int y) {

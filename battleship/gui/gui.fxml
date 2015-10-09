@@ -83,13 +83,15 @@
          </padding>
       </StackPane>
    </right>
-   <center>
-      <Button fx:id="attack" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="Attack" BorderPane.alignment="CENTER" />
-   </center>
    <top>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TextArea fx:id="out" prefHeight="200.0" prefWidth="200.0" />
+            <VBox prefHeight="100.0" prefWidth="303.0">
+               <children>
+                  <TextArea fx:id="out" prefHeight="74.0" prefWidth="190.0" />
+                  <TextField fx:id="chatField" onAction="#chat" promptText="Send a message" />
+               </children>
+            </VBox>
             <TextField fx:id="ipField" promptText="IP address of opponent" />
             <Button fx:id="connect" mnemonicParsing="false" onAction="#connect" text="Connect" />
          </children></HBox>

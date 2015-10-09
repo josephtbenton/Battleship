@@ -3,25 +3,24 @@ package net;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ArrayBlockingQueue;
 
 public class Server {
-	private ServerSocket accepter;
+	private ServerSocket acceptor;
 	public ArrayBlockingQueue<String> messages;
 
 	public Server(int port, ArrayBlockingQueue<String> messages) throws IOException {
-		accepter = new ServerSocket(port);
+		acceptor = new ServerSocket(port);
 		this.messages = messages;
-		System.out.println("Server: IP address: " + accepter.getInetAddress() + " (" + port + ")");
+		System.out.println("Server: IP address: " + acceptor.getInetAddress() + " (" + port + ")");
 
 	}
 
 	public void listen() throws IOException {
 		for (;;) {
-			Socket s = accepter.accept();
+			Socket s = acceptor.accept();
 			SocketEchoThread echoer = new SocketEchoThread(s);
 			System.out.println("Server: Connection accepted from " + s.getInetAddress());
 			echoer.start();
@@ -30,7 +29,7 @@ public class Server {
 
 	public void close() {
 		try {
-			accepter.close();
+			acceptor.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -55,11 +54,6 @@ public class Server {
 		}
 
 
-		private void echoAndClose(PrintWriter writer, String msg) throws IOException {
-			writer.print(msg);
-			writer.flush();
-			socket.close();
-		}
 
 	    private String getMessage() throws IOException {
             BufferedReader responses = 

@@ -77,7 +77,6 @@ public class Network {
             try {
                 Socket target = new Socket(host, port);
                 send(target, message);
-                receive(target);
                 target.close();
             } catch (Exception e) {
                 Platform.runLater(() -> badNews(e.getMessage()));

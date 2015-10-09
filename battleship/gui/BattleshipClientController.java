@@ -51,9 +51,11 @@ public class BattleshipClientController {
             if (now - then > NANO_INTERVAL) {
                 if (connected && net.hasMessage()) {
                     game.receiveMessage(net.getMessage());
+                    System.out.println("inHasMessage()");
                 }
                 if (connected && game.hasMessage()) {
                     net.send(game.getMessage());
+                    System.out.println("gameHasMessage");
                 }
                 game.draw(radarPane, shipPane);
             }

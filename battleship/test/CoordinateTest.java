@@ -26,8 +26,12 @@ public class CoordinateTest {
         for(int x =0; x < 10; x++){
             for (int y = 0; y < 10; y++){
                 Coordinate coordinate = new Coordinate(x,y);
+                Coordinate coordinate2 = new Coordinate(x,y);
+                Coordinate coordinate3 = new Coordinate(0,10);
                 assertEquals(x, coordinate.getX());
                 assertEquals(y, coordinate.getY());
+                assertEquals(coordinate2.equals(coordinate),Boolean.TRUE);
+                assertNotEquals(coordinate3.equals(coordinate),Boolean.TRUE);
                 String shouldBe = dict.get(x)+(y+1);
                 System.out.println(shouldBe);
                 assertEquals(shouldBe, coordinate.toString());

@@ -1,6 +1,5 @@
 package game;
 
-import com.sun.jmx.remote.internal.ArrayQueue;
 import game.core.Coordinate;
 import game.core.Direction;
 import game.core.ShipType;
@@ -9,11 +8,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import net.Message;
 import net.MessageType;
-import net.Network;
-
-import java.util.ArrayDeque;
-import java.util.PriorityQueue;
-import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
 /**
@@ -23,12 +17,13 @@ public class Game {
     Radar radar;
     ShipBoard shipBoard;
     ArrayBlockingQueue<Message> outgoing;
-    Text out;
+    TextArea out;
+    boolean isTurn;
 
-    public Game(Text out) {
+    public Game(TextArea out) {
         this.radar = new Radar();
         this.shipBoard = new ShipBoard();
-        this.outgoing = new ArrayBlockingQueue<Message>(1);
+        this.outgoing = new ArrayBlockingQueue<>(20);
         this.out = out;
     }
 
@@ -37,6 +32,7 @@ public class Game {
         if (message.getType() == MessageType.ATTACK) {
             outgoing.add(shipBoard.checkAttack(message.getCoordinate()));
             print("Attack at " + message.getCoordinate().toString());
+            isTurn = true;
         } else if (message.getType() == MessageType.HIT) {
             radar.registerHit(message.getCoordinate());
             print("You hit at " + message.getCoordinate().toString());
@@ -49,12 +45,15 @@ public class Game {
     }
 
     public void print(String msg) {
-        out.setText(msg);
+        out.appendText(msg + "\n");
     }
 
 
     public void sendAttack(int x, int y) {
-        outgoing.add(new Message(MessageType.ATTACK, new Coordinate(x, y)));
+        if (isTurn()) {
+            outgoing.add(new Message(MessageType.ATTACK, new Coordinate(x, y)));
+            isTurn = false;
+        }
 
     }
 
@@ -75,11 +74,11 @@ public class Game {
         shipBoard.addShip(ShipType.BATTLESHIP, Direction.NORTH, colIndex, rowIndex);
     }
 
-    //temp. for demo only
-    public void radarHit(int x, int y) {
-        radar.registerHit(new Coordinate(x, y));
+    public boolean isTurn() {
+        return isTurn;
     }
-    public void radarMiss(int x, int y) {
-        radar.registerMiss(new Coordinate(x, y));
+
+    public void setTurn(boolean b) {
+        isTurn = true;
     }
 }

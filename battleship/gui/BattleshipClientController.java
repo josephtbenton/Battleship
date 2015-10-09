@@ -5,6 +5,7 @@ import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -29,10 +30,10 @@ public class BattleshipClientController {
     Button connect;
 
     @FXML
-    TextArea ipField;
+    TextField ipField;
 
     @FXML
-    Text out;
+    TextArea out;
 
     Game game;
     Network net = new Network();
@@ -76,6 +77,7 @@ public class BattleshipClientController {
     public void connect() {
         net.connect(ipField.getText(), 8000);
         connected = true;
+        game.setTurn(true);
         ipField.clear();
     }
 

@@ -13,15 +13,6 @@
 <?import javafx.scene.control.Label?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: GREY;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.BattleshipClientController">
-   <bottom>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <Text fx:id="prompt" strokeType="OUTSIDE" strokeWidth="0.0" text="Context based directions" wrappingWidth="209.68292617797852" />
-            <TextArea fx:id="ipField" maxHeight="25.0" maxWidth="167.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="167.0" text="IP address of opponent&#10;" />
-            <Button fx:id="connect" mnemonicParsing="false" onAction="#connect" text="Connect" />
-            <Text fx:id="out" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-         </children></HBox>
-   </bottom>
    <left>
       <StackPane maxHeight="600.0" maxWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -95,4 +86,12 @@
    <center>
       <Button fx:id="attack" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="Attack" BorderPane.alignment="CENTER" />
    </center>
+   <top>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextArea fx:id="out" prefHeight="200.0" prefWidth="200.0" />
+            <TextField fx:id="ipField" promptText="IP address of opponent" />
+            <Button fx:id="connect" mnemonicParsing="false" onAction="#connect" text="Connect" />
+         </children></HBox>
+   </top>
 </BorderPane>

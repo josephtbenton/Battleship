@@ -22,7 +22,7 @@ public class Network {
         port = 8000;
         new Thread(() -> {
             try {
-                s = new Server(port,messages);
+                s = new Server(port, messages);
                 System.out.println("Thread: server Listen");
                 s.listen();
             } catch (IOException e) {
@@ -54,13 +54,11 @@ public class Network {
             return messages.poll();
         }
         return messages.poll();
-//        return "";
 
     }
 
     public void send(String text) {
         try {
-//            System.out.println(ipAddress + port + text);
             sendTo(ipAddress, port, text);
         } catch (Exception e) {
             e.printStackTrace();

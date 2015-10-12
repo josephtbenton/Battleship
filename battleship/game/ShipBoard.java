@@ -54,7 +54,7 @@ public class ShipBoard{
 
     public boolean allSunk() {
         for (Ship s : shipList) {
-            if (s.isAfloat() == false) return false;
+            if (s.isAfloat() == true) return false;
         }
         return true;
     }

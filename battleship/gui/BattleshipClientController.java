@@ -66,7 +66,6 @@ public class BattleshipClientController {
     @FXML
     public void initialize() {
         game = new Game(out);
-
         int numCols = 10;
         int numRows = 10;
         for (int i = 0 ; i < numCols ; i++) {

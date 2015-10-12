@@ -24,9 +24,10 @@ public class Server {
 			SocketEchoThread echoer = new SocketEchoThread(s);
 			System.out.println("Server: Connection accepted from " + s.getInetAddress());
 			echoer.start();
+
 		}
 	}
-	
+
 	private class SocketEchoThread extends Thread {
 	    private Socket socket;
 	    
@@ -41,7 +42,6 @@ public class Server {
 				messages.add(msg);
 				socket.close();
 	        } catch (IOException ioe) {
-				// What do you do when you can't get to this error?
 	            ioe.printStackTrace();
 	        }
 		}

@@ -1,10 +1,7 @@
 package net;
 
-import javafx.application.Platform;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -77,6 +74,7 @@ public class Network {
         sockout.println(message);
         sockout.flush();
     }
+
 
 
 

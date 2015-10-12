@@ -26,14 +26,6 @@ public class Server {
 			echoer.start();
 		}
 	}
-
-	public void close() {
-		try {
-			acceptor.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 	
 	private class SocketEchoThread extends Thread {
 	    private Socket socket;
@@ -49,6 +41,7 @@ public class Server {
 				messages.add(msg);
 				socket.close();
 	        } catch (IOException ioe) {
+				// What do you do when you can't get to this error?
 	            ioe.printStackTrace();
 	        }
 		}

@@ -16,9 +16,9 @@ import java.util.ArrayList;
  */
 public class Radar {
 
-    ArrayList<Coordinate> hits;
+    private ArrayList<Coordinate> hits;
 
-    ArrayList<Coordinate> misses;
+    private ArrayList<Coordinate> misses;
 
     public Radar() {
         this.hits = new ArrayList<>();

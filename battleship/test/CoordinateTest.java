@@ -30,13 +30,23 @@ public class CoordinateTest {
                 Coordinate coordinate3 = new Coordinate(0,10);
                 assertEquals(x, coordinate.getX());
                 assertEquals(y, coordinate.getY());
+                assertTrue(coordinate.isLegal());
                 assertEquals(coordinate2.equals(coordinate),Boolean.TRUE);
                 assertNotEquals(coordinate3.equals(coordinate),Boolean.TRUE);
                 String shouldBe = dict.get(x)+(y+1);
-                System.out.println(shouldBe);
                 assertEquals(shouldBe, coordinate.toString());
             }
         }
+    }
+    @Test
+    public void legalTest(){
+        Coordinate[] coordlist = {new Coordinate(-1,-1), new Coordinate(-1,0),
+        new Coordinate(0,-1), new Coordinate(11,10), new Coordinate(10,11),
+        new Coordinate(11,11)};
+        for (Coordinate coordinate : coordlist){
+            assertFalse(coordinate.isLegal());
+        }
+
     }
 
 }

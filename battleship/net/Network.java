@@ -33,6 +33,7 @@ public class Network {
     }
 
     public void connect(String ip, int port){
+
         ipAddress = ip;
         this.port = port;
         try{
@@ -41,20 +42,13 @@ public class Network {
             connectionfail.printStackTrace();
         }
     }
-    public void close(){
-        s.close();
-    }
     public boolean hasMessage(){
         return messages.size() > 0;
     }
 
     public String getMessage() {
-        if (hasMessage()) {
-            System.out.println("getMessage: " + messages.peek());
-            return messages.poll();
-        }
+        System.out.println("getMessage: " + messages.peek());
         return messages.poll();
-
     }
 
     public void send(String text) {
@@ -66,12 +60,6 @@ public class Network {
     }
 
 
-
-    private void badNews(String what) {
-        System.out.println(what);
-        // TODO: THROW ALL THE ERRORS
-    }
-
     void sendTo(String host, int port, String message) {
         new Thread(() -> {
             try {
@@ -79,7 +67,6 @@ public class Network {
                 send(target, message);
                 target.close();
             } catch (Exception e) {
-                Platform.runLater(() -> badNews(e.getMessage()));
                 e.printStackTrace();
             }
         }).start();
@@ -90,21 +77,6 @@ public class Network {
         sockout.println(message);
         sockout.flush();
     }
-
-    void receive(Socket target) throws IOException {
-        BufferedReader sockin = new BufferedReader(new InputStreamReader(target.getInputStream()));
-        while (!sockin.ready()) {}
-        while (sockin.ready()) {
-            try {
-                String msg = sockin.readLine();
-                // messages.put(msg);
-            } catch (Exception e) {
-                Platform.runLater(() -> badNews(e.getMessage()));
-                e.printStackTrace();
-            }
-        }
-    }
-
 
 
 

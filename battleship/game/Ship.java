@@ -3,7 +3,6 @@ package game;
 import game.core.Coordinate;
 import game.core.Direction;
 import game.core.ShipType;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -31,6 +30,7 @@ public class Ship {
 
     public void rotate() {
         dir = dir.getNext();
+        footprint = calculateFootprint();
     }
 
     private Coordinate[] calculateFootprint() {

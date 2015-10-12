@@ -22,6 +22,7 @@ public class ShipBoard{
         Ship ship = new Ship(type, dir, x, y);
         for (Coordinate c : ship.getFootprint()) {
             if (!c.isLegal()) return;
+            // TODO should this not throw an error?
         }
         shipList.add(ship);
     }

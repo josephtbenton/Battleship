@@ -19,7 +19,6 @@ public class BattleshipClient extends Application {
         primaryStage.setTitle("Battleship");
         primaryStage.setScene(new Scene(root, 800, 600));
         //primaryStage.setResizable(false);
-        primaryStage.setScene(new Scene(root, 1280, 720));
         primaryStage.setOnCloseRequest(e -> {
             Platform.exit();
             System.exit(0);

@@ -29,6 +29,13 @@ public class Game {
         this.out = out;
     }
 
+    public Game() {
+        this.radar = new Radar();
+        this.shipBoard = new ShipBoard();
+        this.outgoing = new ArrayBlockingQueue<>(20);
+    }
+
+
     public void receiveMessage(String incoming) {
         Message message = new Message(incoming);
         if (message.getType() == MessageType.ATTACK) {

@@ -30,6 +30,9 @@ public class BattleshipClientController {
     Pane[][] handlers;
 
     @FXML
+    Button attack;
+
+    @FXML
     Button connect;
 
     @FXML
@@ -43,8 +46,6 @@ public class BattleshipClientController {
 
     Game game;
     Network net = new Network();
-    Ship currentShip;
-
     boolean connected;
     private long FRAMES_PER_SEC = 60L;
     private long NANO_INTERVAL = 1000000000L / FRAMES_PER_SEC;
@@ -62,7 +63,7 @@ public class BattleshipClientController {
                     net.send(game.getMessage());
                     System.out.println("gameHasMessage");
                 }
-                game.draw(radarPane, shipPane, handlers);
+                game.draw(radarPane, shipPane);
             }
             then = now;
         }
@@ -116,7 +117,6 @@ public class BattleshipClientController {
         net.send("T" + chatField.getText());
         chatField.clear();
     }
-
 
     private void attack(int x, int y) {
         game.sendAttack(x, y);

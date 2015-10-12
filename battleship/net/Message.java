@@ -46,7 +46,7 @@ public class Message {
                 return MessageType.TEXT;
             }
         }
-        return null;
+        return MessageType.ERROR;
     }
 
     public String asString(){

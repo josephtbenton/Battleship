@@ -13,7 +13,7 @@ public class BattleshipClient extends Application {
     public void start(Stage primaryStage) throws Exception{
         BorderPane root = FXMLLoader.load(getClass().getResource("gui.fxml"));
         primaryStage.setTitle("Battleship");
-        primaryStage.setScene(new Scene(root, 1280, 720));
+        primaryStage.setScene(new Scene(root, 800, 600));
         //primaryStage.setResizable(false);
         primaryStage.show();
     }

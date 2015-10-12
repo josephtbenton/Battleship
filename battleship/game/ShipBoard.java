@@ -3,18 +3,21 @@ package game;
 import game.core.Coordinate;
 import game.core.Direction;
 import game.core.ShipType;
+import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import net.Message;
 import net.MessageType;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Created by reedmershon on 10/3/15.
  */
 public class ShipBoard{
 
-    ArrayList<Ship> shipList = new ArrayList<>();
+    HashSet<Ship> shipList = new HashSet<>();
     ArrayList<Coordinate> hits = new ArrayList<>();
     ArrayList<Coordinate> misses = new ArrayList<>();
 
@@ -46,16 +49,27 @@ public class ShipBoard{
         misses.add(location);
     }
 
-    public void draw(GridPane display) {
+    public void draw(GridPane display, Pane[][] handlers) {
+        for (Node node : display.getChildren()) {
+            node.setStyle("-fx-background-color: LIGHTBLUE");
+        }
         for (Ship s : shipList) {
-            s.draw(display);
+            s.draw(display, handlers);
         }
     }
 
     public boolean allSunk() {
         for (Ship s : shipList) {
-            if (s.isAfloat() == false) return false;
+            if (s.isAfloat() == true) return false;
         }
         return true;
+    }
+
+    public int numShips() {
+        return shipList.size();
+    }
+
+    public void addShip(Ship s) {
+        shipList.add(s);
     }
 }

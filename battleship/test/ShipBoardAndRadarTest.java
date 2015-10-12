@@ -37,7 +37,7 @@ public class ShipBoardAndRadarTest {
         s.checkAttack(new Coordinate(2,0));
         assertEquals(false, s.allSunk());
         s.checkAttack(new Coordinate(3,0));
-        assertEquals(false, s.allSunk());
+        assertEquals(true, s.allSunk());
 
 
     }

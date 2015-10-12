@@ -4,8 +4,8 @@ import game.core.Coordinate;
 import game.core.Direction;
 import game.core.ShipType;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 /**
  * Created by josephbenton on 10/3/15.
@@ -25,15 +25,15 @@ public class Ship {
         this.root = new Coordinate(x, y);
         this.length = type.getLength();
         hits = new boolean[length];
-        footprint = calculateFootprint();
+        footprint = calculateFootprint(root);
     }
 
     public void rotate() {
         dir = dir.getNext();
-        footprint = calculateFootprint();
+        footprint = calculateFootprint(root);
     }
 
-    private Coordinate[] calculateFootprint() {
+    private Coordinate[] calculateFootprint(Coordinate root) {
         Coordinate[] coords = new Coordinate[length];
         Coordinate cur = root;
         for (int i = 0; i < coords.length; i++) {
@@ -69,18 +69,40 @@ public class Ship {
     }
 
 
-    public void draw(GridPane display) {
+    public void draw(GridPane display, Pane[][] handlers) {
         Coordinate current = root;
-        for (int i = 0; i < length; i++) {
-            Color color = hits[i] ? Color.RED : Color.DARKGRAY;
-            Rectangle rect = new Rectangle(50, 50, color);
-            rect.setOnMouseClicked(ev -> {
-                System.out.println("rotating");
-                this.rotate();
-
-            });
-            display.add(rect, current.getX(), current.getY());
-            current = dir.nextCoord(current);
+        if (hasLegalFootprint(footprint)) {
+            for (int i = 0; i < length; i++) {
+                if (current.isLegal()) {
+                    String color = hits[i] ? "RED" : "DARKGREY";
+                    Pane p = handlers[current.getX()][current.getY()];
+                    p.setStyle("-fx-background-color: " + color);
+                    current = dir.nextCoord(current);
+                }
+            }
         }
+    }
+
+    public boolean hasLegalFootprint(Coordinate[] footprint) {
+        for (Coordinate c : footprint) {
+            if (!c.isLegal()) return false;
+        }
+        return true;
+    }
+    public boolean hasLegalFootprint() {
+        for (Coordinate c : footprint) {
+            if (!c.isLegal()) return false;
+        }
+        return true;
+    }
+
+
+    public void setRoot(int colIndex, int rowIndex) {
+        root = new Coordinate(colIndex, rowIndex);
+        calculateFootprint(root);
+    }
+
+    public boolean checkRoot(Coordinate root) {
+        return hasLegalFootprint(calculateFootprint(root));
     }
 }

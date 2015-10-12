@@ -1,16 +1,21 @@
 package gui;
 
 import game.Game;
+import game.Ship;
+import game.core.Coordinate;
+import game.core.Direction;
+import game.core.GameMode;
+import game.core.ShipType;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 import net.Network;
-
 /**
  * Created by josephbenton on 10/6/15.
  */
@@ -22,9 +27,7 @@ public class BattleshipClientController {
 
     @FXML
     GridPane shipPane;
-
-    @FXML
-    Button attack;
+    Pane[][] handlers;
 
     @FXML
     Button connect;
@@ -40,6 +43,8 @@ public class BattleshipClientController {
 
     Game game;
     Network net = new Network();
+    Ship currentShip;
+
     boolean connected;
     private long FRAMES_PER_SEC = 60L;
     private long NANO_INTERVAL = 1000000000L / FRAMES_PER_SEC;
@@ -57,7 +62,7 @@ public class BattleshipClientController {
                     net.send(game.getMessage());
                     System.out.println("gameHasMessage");
                 }
-                game.draw(radarPane, shipPane);
+                game.draw(radarPane, shipPane, handlers);
             }
             then = now;
         }
@@ -66,24 +71,43 @@ public class BattleshipClientController {
     @FXML
     public void initialize() {
         game = new Game(out);
-
-        int numCols = 10;
-        int numRows = 10;
-        for (int i = 0 ; i < numCols ; i++) {
-            for (int j = 0; j < numRows; j++) {
+        game.setGameMode(GameMode.WAITING);
+        int NUM_COLS = 10;
+        int NUM_ROWS = 10;
+        addRotateHandler();
+        handlers = new Pane[10][10];
+        for (int i = 0 ; i < NUM_COLS ; i++) {
+            for (int j = 0; j < NUM_ROWS; j++) {
                 addPaneRadar(i, j);
                 addPaneShip(i, j);
             }
         }
         timer.start();
+
+        game.setGameMode(GameMode.PLACE_SHIP);
+        currentShip = new Ship(ShipType.values()[game.numShips()], Direction.EAST, 0, 0);
+
     }
+
+    private void addRotateHandler() {
+        shipPane.setOnKeyPressed(e -> {
+            if ( game.getMode() == GameMode.PLACE_SHIP) {
+                currentShip.rotate();
+            }
+        });
+    }
+
 
     @FXML
     public void connect() {
-        net.connect(ipField.getText(), 8000);
-        connected = true;
-        game.setTurn(true);
-        ipField.clear();
+        if (game.getMode() == GameMode.CONNECT) {
+            net.connect(ipField.getText(), 8000);
+            connected = true;
+            game.setTurn(true);
+            ipField.clear();
+        } else {
+            game.print("Place all ships before connecting");
+        }
     }
 
     @FXML
@@ -92,6 +116,7 @@ public class BattleshipClientController {
         net.send("T" + chatField.getText());
         chatField.clear();
     }
+
 
     private void attack(int x, int y) {
         game.sendAttack(x, y);
@@ -110,9 +135,31 @@ public class BattleshipClientController {
         Pane pane = new Pane();
         pane.setOnMouseClicked(e -> {
             System.out.printf("Mouse clicked ship board [%d, %d]%n", colIndex, rowIndex);
-            game.addShip(rowIndex, colIndex);
+            handleClickShipPane(colIndex, rowIndex);
         });
+        pane.setOnMouseEntered(e -> {
+            if (game.getMode() == GameMode.PLACE_SHIP) {
+                if (currentShip.checkRoot(new Coordinate(colIndex, rowIndex))) {
+                    currentShip.setRoot(colIndex, rowIndex);
+                    game.addShip(currentShip);
+                }
+            }
+        });
+
         shipPane.add(pane, colIndex, rowIndex);
+        handlers[colIndex][rowIndex] = pane;
+    }
+
+    private void handleClickShipPane(int colIndex, int rowIndex) {
+        if (game.getMode() == GameMode.PLACE_SHIP) {
+            game.addShip(currentShip);
+            if (game.numShips() == 5) {
+                game.setGameMode(GameMode.CONNECT);
+                return;
+            }
+            currentShip = new Ship(ShipType.values()[game.numShips()], Direction.EAST, colIndex, rowIndex);
+        }
+
     }
 
 }

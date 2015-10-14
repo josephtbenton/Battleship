@@ -20,6 +20,7 @@ public class ShipBoard{
     HashSet<Ship> shipList = new HashSet<>();
     ArrayList<Coordinate> hits = new ArrayList<>();
     ArrayList<Coordinate> misses = new ArrayList<>();
+    Ship tempShip;
 
     public void addShip(ShipType type, Direction dir, int x, int y) {
         Ship ship = new Ship(type, dir, x, y);
@@ -28,6 +29,10 @@ public class ShipBoard{
             // TODO should this not throw an error?
         }
         shipList.add(ship);
+    }
+
+    public void setTempShip(Ship s) {
+        tempShip = s;
     }
 
 
@@ -52,6 +57,11 @@ public class ShipBoard{
     public void draw(GridPane display, Pane[][] handlers) {
         for (Node node : display.getChildren()) {
             node.setStyle("-fx-background-color: LIGHTBLUE");
+
+            node.setStyle("-fx-stroke-color: BLACK");
+        }
+        if (tempShip != null) {
+            tempShip.draw(display, handlers);
         }
         for (Ship s : shipList) {
             s.draw(display, handlers);
@@ -60,7 +70,7 @@ public class ShipBoard{
 
     public boolean allSunk() {
         for (Ship s : shipList) {
-            if (s.isAfloat() == true) return false;
+            if (s.isAfloat()) return false;
         }
         return true;
     }

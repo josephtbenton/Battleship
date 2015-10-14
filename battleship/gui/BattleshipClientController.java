@@ -11,8 +11,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import net.Network;
@@ -47,6 +45,7 @@ public class BattleshipClientController {
     Game game;
     Network net = new Network();
     boolean connected;
+    Ship currentShip;
     private long FRAMES_PER_SEC = 60L;
     private long NANO_INTERVAL = 1000000000L / FRAMES_PER_SEC;
 
@@ -63,7 +62,7 @@ public class BattleshipClientController {
                     net.send(game.getMessage());
                     System.out.println("gameHasMessage");
                 }
-                game.draw(radarPane, shipPane);
+                game.draw(radarPane, shipPane, handlers);
             }
             then = now;
         }
@@ -84,14 +83,14 @@ public class BattleshipClientController {
             }
         }
         timer.start();
-
+        game.print("Welcome to Battleship\nClick to place ships\nScroll the mouse to rotate before placing");
         game.setGameMode(GameMode.PLACE_SHIP);
         currentShip = new Ship(ShipType.values()[game.numShips()], Direction.EAST, 0, 0);
 
     }
 
     private void addRotateHandler() {
-        shipPane.setOnKeyPressed(e -> {
+        shipPane.setOnScroll(e -> {
             if ( game.getMode() == GameMode.PLACE_SHIP) {
                 currentShip.rotate();
             }
@@ -101,12 +100,13 @@ public class BattleshipClientController {
 
     @FXML
     public void connect() {
-        if (game.getMode() == GameMode.CONNECT) {
+        if (game.getMode() != GameMode.PLACE_SHIP) {
             net.connect(ipField.getText(), 8000);
             connected = true;
             game.setTurn(true);
             ipField.clear();
-        } else {
+            game.print("You can start playing!\nTurns are based on whoever goes first");
+        } else{
             game.print("Place all ships before connecting");
         }
     }
@@ -141,7 +141,7 @@ public class BattleshipClientController {
             if (game.getMode() == GameMode.PLACE_SHIP) {
                 if (currentShip.checkRoot(new Coordinate(colIndex, rowIndex))) {
                     currentShip.setRoot(colIndex, rowIndex);
-                    game.addShip(currentShip);
+                    game.setHoverShip(currentShip);
                 }
             }
         });
@@ -152,9 +152,14 @@ public class BattleshipClientController {
 
     private void handleClickShipPane(int colIndex, int rowIndex) {
         if (game.getMode() == GameMode.PLACE_SHIP) {
+            System.out.println(currentShip.getRoot());
+            currentShip.setRoot(colIndex, rowIndex);
+            System.out.println(currentShip.getRoot());
             game.addShip(currentShip);
             if (game.numShips() == 5) {
+                currentShip = null;
                 game.setGameMode(GameMode.CONNECT);
+                game.print("Enter opponent's IP address and click Connect");
                 return;
             }
             currentShip = new Ship(ShipType.values()[game.numShips()], Direction.EAST, colIndex, rowIndex);

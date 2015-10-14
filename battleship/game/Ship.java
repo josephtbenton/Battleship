@@ -5,7 +5,6 @@ import game.core.Direction;
 import game.core.ShipType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 
 /**
  * Created by josephbenton on 10/3/15.
@@ -71,7 +70,8 @@ public class Ship {
 
     public void draw(GridPane display, Pane[][] handlers) {
         Coordinate current = root;
-        if (hasLegalFootprint(footprint)) {
+
+        if (isLegalFootprint(footprint)) {
             for (int i = 0; i < length; i++) {
                 if (current.isLegal()) {
                     String color = hits[i] ? "RED" : "DARKGREY";
@@ -83,7 +83,7 @@ public class Ship {
         }
     }
 
-    public boolean hasLegalFootprint(Coordinate[] footprint) {
+    public boolean isLegalFootprint(Coordinate[] footprint) {
         for (Coordinate c : footprint) {
             if (!c.isLegal()) return false;
         }
@@ -99,10 +99,14 @@ public class Ship {
 
     public void setRoot(int colIndex, int rowIndex) {
         root = new Coordinate(colIndex, rowIndex);
-        calculateFootprint(root);
+        footprint = calculateFootprint(root);
     }
 
     public boolean checkRoot(Coordinate root) {
-        return hasLegalFootprint(calculateFootprint(root));
+        return isLegalFootprint(calculateFootprint(root));
+    }
+
+    public Coordinate getRoot() {
+        return root;
     }
 }

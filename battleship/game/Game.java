@@ -80,8 +80,11 @@ public class Game {
     }
 
     public void addShip(ShipType type, Direction dir, int rowIndex, int colIndex) {
-        shipBoard.addShip(type
-                , dir, colIndex, rowIndex);
+        shipBoard.addShip(type, dir, colIndex, rowIndex);
+    }
+
+    public void setHoverShip(Ship s) {
+        shipBoard.setTempShip(s);
     }
 
     public void addShip(Ship s) {
@@ -103,5 +106,9 @@ public class Game {
 
     public int numShips() {
         return shipBoard.numShips();
+    }
+
+    public boolean isTurn() {
+        return mode == GameMode.YOUR_TURN;
     }
 }

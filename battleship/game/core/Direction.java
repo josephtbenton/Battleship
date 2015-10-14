@@ -27,6 +27,7 @@ public enum Direction {
     };
 
     private Direction next;
+
     static {
         NORTH.next = EAST;
         EAST.next = SOUTH;
